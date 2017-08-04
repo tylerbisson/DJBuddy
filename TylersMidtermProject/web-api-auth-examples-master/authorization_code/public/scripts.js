@@ -96,16 +96,16 @@ var app = {
 		console.log("makeSortedPlaylistHTML: entered");
 		var theHTML = "<h3> Playlist </h3>";
 		theHTML += "<table class='playlistitems'>";
-		theHTML += "<tr>" + "<th>Artist</th>" + "<th>Track</th>" + "<th>BPM</th>" + "</tr>";
+		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> BPM </th> </tr>";
 		theHTML += "</table>" ;
 		$('main').append(theHTML);
 		var moreHTML = '';
 		for (var i = 0; i < app.playlistTracks.length; i++){
 			if (i % 2 == 0){
-				moreHTML += "<tr" + "  "  + "class=" + "even" + "  " + 'id=' + i + ">";
+				moreHTML += "<tr class= even id=" + i + ">";
 			}
 			else{
-				moreHTML += "<tr" + "  " + 'id=' + i + ">";
+				moreHTML += "<tr id=" + i + ">";
 			}
 			moreHTML += "<td>" + app.sortedplaylist[i].track.artists[0].name + "</td>";
 			moreHTML += "<td>" + app.sortedplaylist[i].track.name + "</td>";
@@ -216,16 +216,16 @@ var app = {
 		console.log("makeRecommendationHTML: entered");
 		var theHTML = "<h3> Recommendations </h3>";
 		theHTML += "<table class='recommendations'>";
-		theHTML += "<tr>" + "<th>Artist</th>" + "<th>Track</th>" + "<th>BPM</th>" + "</tr>";
+		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> BPM </th> </tr>";
 		theHTML += "</table>" ;
 		$('nav').html(theHTML);
 		var moreHTML = '';
 		for (var i = 0; i < app.sortedrecommendedTracks.length; i++){
 			if (i % 2 != 0){
-				moreHTML += "<tr" + "  " + "class=" + "oddrec" + "  " + 'id=' + i + ">";
+				moreHTML += "<tr class= oddrec id=" + i + ">";
 			}
 			else{
-				moreHTML += "<tr" + "  " + 'id=' + i + ">";
+				moreHTML += "<tr id=" + i + ">";
 			}
 			moreHTML += "<td>" + app.sortedrecommendedTracks[i].artists[0].name + "</td>";
 			moreHTML += "<td>" + app.sortedrecommendedTracks[i].name + "</td>";
@@ -254,6 +254,7 @@ var app = {
 		window.onclick = function(event) {
 			if (event.target == modal) {
 				modal.style.display = "none";
+				document.createElement('audio').muted = 'true';
 			}
 		};
 	});
@@ -284,12 +285,12 @@ var app = {
 
 	/////////////////////////////////////////////////////////////GENERAL_MODAL/////////////////////////////////////////////////////////////
 
-	DiscogsSearch: function(release, artist, id, type) {
+	DiscogsSearch: function(track, artist, id, type) {
 		console.log("DiscogsSearch: initialize");
 		var spotifyURL = 'https://api.discogs.com/database/search?q=?';
 		var key = 'bsIqdNRottjcwAlywdms';
 		var secret = 'VarafRnDMykSDvJxJlMPczjKBrnFXmTH';
-		var mySpotifyReqURL = spotifyURL + artist + " - " + release + '&key=' + key + '&secret=' + secret;  
+		var mySpotifyReqURL = spotifyURL + artist + " - " + track + '&key=' + key + '&secret=' + secret;  
 		$.ajax({
 			url: mySpotifyReqURL,
 			type: 'GET', 
@@ -302,12 +303,12 @@ var app = {
 			success: function(data){
 				console.log("DiscogsSearch: success");
 				console.log(data.results[0].resource_url);
-				app.getDiscogsInfo(data.results[0].resource_url, id, type);
+				app.getDiscogsInfo(data.results[0].resource_url, id, type, track);
 			}
 		});
 	},
 
-	getDiscogsInfo: function(releaseURL, id, type){
+	getDiscogsInfo: function(releaseURL, id, type, track){
 		console.log("getDiscogsInfo: initialize");
 		var mySpotifyReqURL = releaseURL;
 		$.ajax({
@@ -322,7 +323,20 @@ var app = {
 				console.log("getDiscogsInfo: success");
 
 				if(data.community && data.uri){
-					app.populateDiscogsModal(data.artists[0].name, data.title, data.year, data.num_for_sale, data.lowest_price, data.community.have, data.community.want, data.community.rating.average, data.community.rating.count, "N/A", id, type);
+					app.populateDiscogsModal(
+						data.artists[0].name, 
+						track, 
+						data.title, 
+						data.year, 
+						data.num_for_sale, 
+						data.lowest_price, 
+						data.community.have, 
+						data.community.want, 
+						data.community.rating.average, 
+						data.community.rating.count, 
+						"N/A", 
+						id, 
+						type);
 				}
 				// if(!data.community && data.uri){
 				// 	app.populateDiscogsModal(data.artists[0].name, data.title, data.year, data.num_for_sale, data.lowest_price, "N/A", "N/A", "N/A", "N/A", data.uri, id, type);
@@ -331,36 +345,50 @@ var app = {
 				// 	app.populateDiscogsModal(data.artists[0].name, data.title, data.year, data.num_for_sale, data.lowest_price, data.community.have, data.community.want, data.community.rating.average, data.community.rating.count, data.uri, id, type);
 				// }
 				else{
-					app.populateDiscogsModal(data.artists[0].name, data.title, data.year, data.num_for_sale, data.lowest_price, "N/A", "N/A", "N/A", "N/A", "N/A", id, type);
+					app.populateDiscogsModal(
+						data.artists[0].name, 
+						track, 
+						data.title, 
+						data.year, 
+						data.num_for_sale, 
+						data.lowest_price, 
+						"N/A", 
+						"N/A", 
+						"N/A", 
+						"N/A", 
+						"N/A", 
+						id, 
+						type);
 				}
 			}
 		});
 	},
 
-	populateDiscogsModal: function(artist, record, year, numForSale, lowestPrice, have, want, rating, numRatings, uri, id, type){
+	populateDiscogsModal: function(artist, track, record, year, numForSale, lowestPrice, have, want, rating, numRatings, uri, id, type){
 		console.log("populateDiscogsModal: entered");
 		var that = id; 
 		var moreHTML = '';
-		moreHTML += "<tr>" + "<td>" + "Artist" + "</td>" + "<td>" + artist + "</td>" + "</tr>";
-		moreHTML += "<tr>" + "<td>" + "Record Name" + "</td>" + "<td>" + record + "</td>" + "</tr>";
-		moreHTML += "<tr>" + "<td>" + "Release Date" + "</td>" + "<td>" + year + "</td>" + "</tr>";
-		moreHTML += "<tr>" + "<td>" + "Number For Sale" + "</td>" + "<td>" + numForSale + "</td>" + "</tr>";
-		moreHTML += "<tr>" + "<td>" + "Lowest Price Available" + "</td>" + "<td>" + "$" + lowestPrice + "</td>" + "</tr>";
-		moreHTML += "<tr>" + "<td>" + "Owned By" + "</td>" + "<td>" + have + "</td>" + "</tr>";
-		moreHTML += "<tr>" + "<td>" + "Wanted By" + "</td>" + "<td>" + want + "</td>" + "</tr>";
-		moreHTML += "<tr>" + "<td>" + "Average Rating" + "</td>" + "<td>" + rating + "</td>" + "</tr>";
-		moreHTML += "<tr>" + "<td>" + "Number of Ratings" + "</td>" + "<td>" + numRatings + "</td>" + "</tr>";
-		moreHTML += "<tr>" + "<td>" + "Discogs Link" + "</td>" + "<td>" + uri + "</td>" + "</tr>";
-		moreHTML +=  "<tr>" + "<td class='the-track'></td></tr>";
+		moreHTML += "<tr class = even> <td> Artist </td><td>" + artist + "</td></tr>";
+		moreHTML += "<tr> <td> Track </td> <td>" + track + "</td> </tr>";
+		moreHTML += "<tr> <td> Record Name </td> <td>" + record + "</td> </tr>";
+		moreHTML += "<tr> <td> Release Date </td> <td>" + year + "</td> </tr>";
+		moreHTML += "<tr> <td> Number For Sale </td> <td>" + numForSale + "</td> </tr>";
+		moreHTML += "<tr> <td> Lowest Price Available </td> <td> $" + lowestPrice + "</td> </tr>";
+		moreHTML += "<tr> <td> Owned By </td> <td>" + have + "</td> </tr>";
+		moreHTML += "<tr> <td>  Wanted By </td> <td>" + want + "</td> </tr>";
+		moreHTML += "<tr> <td> Average Rating </td> <td>" + rating + "</td> </tr>";
+		moreHTML += "<tr> <td> Number of Ratings </td> <td>" + numRatings + "</td> </tr>";
+		moreHTML += "<tr> <td> Discogs Link </td> <td>" + uri + "</td> </tr>";
+		moreHTML +=  "<tr> <td class='the-track'></td></tr>";
 		if (type == 1){
 			app.trackPreview(app.sortedplaylist[that].track.id);
-			moreHTML += "<td>" + "<img src='" + app.sortedplaylist[that].track.album.images[0].url + "'/>" + "</td>";
+			moreHTML += "<td> <img src='" + app.sortedplaylist[that].track.album.images[0].url + "'/> </td>";
 		}
 		else{
 			app.trackPreview(app.sortedrecommendedTracks[that].id);
-			moreHTML += "<td>" + "<img src='" + app.sortedrecommendedTracks[that].album.images[0].url + "'/>" + "</td>";
+			moreHTML += "<td> <img src='" + app.sortedrecommendedTracks[that].album.images[0].url + "'/> </td>";
 		}
-
+		
 		$('.DiscogsInfo').html(moreHTML);
 	},
 
@@ -379,14 +407,11 @@ var app = {
 				console.log("trackPreview: success");
 				var trackName = data.name;
 				var url = data.preview_url;
-
 				var audioElement = document.createElement('audio');
 				audioElement.src = data.preview_url;
 				audioElement.autoplay = 'true';
 				audioElement.controls = 'true';
-
 				$('.the-track').append(audioElement);
-				
 			},
 
 			error: function() {
