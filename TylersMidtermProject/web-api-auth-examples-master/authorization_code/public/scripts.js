@@ -117,6 +117,7 @@ var app = {
 		$('.playlistitems').append(moreHTML);
 		app.initializeSortedClick();
 		app.makeDiscogsModal();
+		app.deeThreeExperiment();
 	},
 
 	/////////////////////////////////////////////////////////////RECOMMENDATIONS_COLUMN/////////////////////////////////////////////////////////////
@@ -388,7 +389,7 @@ var app = {
 			app.trackPreview(app.sortedrecommendedTracks[that].id);
 			moreHTML += "<td> <img src='" + app.sortedrecommendedTracks[that].album.images[0].url + "'/> </td>";
 		}
-		
+
 		$('.DiscogsInfo').html(moreHTML);
 	},
 
@@ -418,8 +419,30 @@ var app = {
 				console.log("trackPreview: error");
 			}
 		});
-
 	},
+
+/////////////////////////////////////////////////////////////DATA_VISUALIZATION/////////////////////////////////////////////////////////////
+
+deeThreeExperiment: function(){
+	console.log("deeThreeExperiment: entered");
+	console.log(app.playlistTracks);
+	var arr = $.map(app.playlistTracks, function (el) {
+		return el.track.popularity;
+	});
+	console.log(arr);
+	// console.log(app.playlistBPMS);
+	// var experiment = [];
+	// experiment = $.makeArray(app.playlistBPMS);
+
+	// experiment = $.each(app.playlistBPMS.tempo);
+	// console.log(experiment);
+
+	d3.select("body").selectAll("p")
+	.data(arr)
+	.enter()
+	.append("p")
+	.text(arr);
+},
 };
 
 
