@@ -16,17 +16,25 @@
 			app.initialize();
 		});
 	</script>
-	
+
+
 	<header>
-		<h1>DJ Buddy</h1>
+		<h1>
+			<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="200px" height="100px">
+				<defs>
+					<path id="curvepath" fill="none" d="M10 40 C 30 10, 50 10, 100 40 S 130 0, 180 40" />
+				</defs>
+				<text><textPath xlink:href="#curvepath">DJ Buddy</textPath></text>
+			</svg>
+		</h1>
 	</header>
 
 	<main>
 		<div id="myModal" class="modal">
 			<div class="modal-content">
-			<h2>Discogs Info</h2>
-			<table class='DiscogsInfo'>
-			</table>
+				<h2>Discogs Info</h2>
+				<table class='DiscogsInfo'>
+				</table>
 			</div>
 
 		</div>
@@ -37,6 +45,5 @@
 	</table>
 	<div class="chart">
 	</div>
-
 </body>
 </html>

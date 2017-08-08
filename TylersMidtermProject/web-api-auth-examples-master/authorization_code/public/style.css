@@ -4,7 +4,7 @@ body {
 }
 
 h1{
-	font: italic 100px/45px Helvetica, Arial, sans-serif;
+	/*font: italic 100px/45px Helvetica, Arial, sans-serif;*/
 	text-align: center;
 	float: center;
 	color: NavajoWhite;
@@ -133,6 +133,8 @@ tr:hover {
 	background: PaleGreen;
 
 }*/
+
+
 
 
 
