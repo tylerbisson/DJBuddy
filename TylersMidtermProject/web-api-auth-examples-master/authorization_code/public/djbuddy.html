@@ -7,6 +7,16 @@
 	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
+
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="jquery-2.1.1.js"></script>
+	<script src="scripts.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			app.initialize();
+		});
+	</script>
+	
 	<header>
 		<h1>DJ Buddy</h1>
 	</header>
@@ -25,15 +35,8 @@
 	</nav>
 	<table>
 	</table>
-
-	<script src="https://d3js.org/d3.v4.min.js"></script>
-	<script src="jquery-2.1.1.js"></script>
-	<script src="scripts.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			app.initialize();
-		});
-	</script>
+	<div class="chart">
+	</div>
 
 </body>
 </html>

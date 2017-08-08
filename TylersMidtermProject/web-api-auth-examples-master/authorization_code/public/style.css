@@ -65,6 +65,10 @@ th {
 	border-top: 1px solid #999;
 	text-align: left;
 }
+
+tr {
+	/*color: red;*/
+}
 			
 tr.even {
 	background-color: #e0ebeb;
@@ -101,26 +105,21 @@ tr:hover {
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-img{
+/*img{
 	display: block;
 	width: 10%;
 	height: 10%;
 	margin: 0 auto;
+}
+*/
+
+.chart div {
+  font: 10px sans-serif;
+  /*background-color: rgb(0%,0%,100%);*/
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
 }
 
 

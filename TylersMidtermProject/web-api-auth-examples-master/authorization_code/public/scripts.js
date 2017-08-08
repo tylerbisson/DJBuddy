@@ -115,6 +115,16 @@ var app = {
 		}
 
 		$('.playlistitems').append(moreHTML);
+
+		var arr = $.map(app.sortedplaylist, function (el) {
+			return el.track.popularity;
+		});
+
+		d3.selectAll(".playlistitems")
+		// .forEach()
+		.data(arr)
+		.style("color", function(d) { return "hsl(" + Math.round(250 * ((100-d)/100)) + ",100%,50%)"; });
+
 		app.initializeSortedClick();
 		app.makeDiscogsModal();
 		app.deeThreeExperiment();
@@ -424,24 +434,20 @@ var app = {
 /////////////////////////////////////////////////////////////DATA_VISUALIZATION/////////////////////////////////////////////////////////////
 
 deeThreeExperiment: function(){
-	console.log("deeThreeExperiment: entered");
-	console.log(app.playlistTracks);
+
 	var arr = $.map(app.playlistTracks, function (el) {
 		return el.track.popularity;
 	});
-	console.log(arr);
-	// console.log(app.playlistBPMS);
-	// var experiment = [];
-	// experiment = $.makeArray(app.playlistBPMS);
 
-	// experiment = $.each(app.playlistBPMS.tempo);
-	// console.log(experiment);
-
-	d3.select("body").selectAll("p")
+	d3.select(".chart")
+	.selectAll("div")
 	.data(arr)
 	.enter()
-	.append("p")
-	.text(arr);
+	.append("div")
+	.style("width", function(d) { return d * 10 + "px"; })
+	.style("background-color", function(d) { return "hsl(" + Math.round(250 * ((100-d)/100)) + ",100%,50%)"; })
+	.text(function(d) { return d; });
+
 },
 };
 
