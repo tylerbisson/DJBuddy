@@ -4,17 +4,16 @@ body {
 }
 
 h1{
-	font: italic 100px/45px Helvetica, Arial, sans-serif;
+	font: italic bold 100px/45px Arial Rounded MT Bold, sans-serif;
 	text-align: center;
 	float: center;
-	color: Black;
-	text-shadow: 2px 2px 5px #006666;
-	letter-spacing: 7px;
+	color: #b53030;
+	letter-spacing: 20px;
 }
 
 
 h2{
-	font: italic 50px/45px Helvetica, Arial, sans-serif;
+	font: italic 50px/45px Arial Rounded MT Bold, sans-serif;
 	text-align: center;
 	float: center;
 	color: Black;
@@ -22,20 +21,17 @@ h2{
 }
 
 h3{
-	font: italic 50px/45px Helvetica, Arial, sans-serif;
+	font: italic 50px/45px Arial Rounded MT Bold, sans-serif;
 	text-align: center;
 	float: center;
-	color: Black;
-	text-shadow: 2px 2px 5px #006666;
+	color: #bdcccc;
 }
 
-h4{
-	color: red;
-	position: relative;
-	font: bold 20px/25px Helvetica, Arial, sans-serif;
-	margin: 0;
-	padding: 0 0 0 12px;
-	white-space: nowrap;
+h3.rex{
+	font: italic 50px/45px Arial Rounded MT Bold, sans-serif;
+	text-align: center;
+	float: center;
+	color: #d0d0db;
 }
 
 .playlist{
@@ -68,10 +64,6 @@ th {
 	border-bottom: 2px solid #111111;
 	border-top: 1px solid #999;
 	text-align: left;
-}
-
-tr {
-	/*color: red;*/
 }
 
 tr.even {
@@ -113,8 +105,6 @@ tr:hover {
 	width: 80%; /* Could be more or less, depending on screen size */
 }
 
-
-
 .chart div {
 	font: 10px sans-serif;
 	/*background-color: rgb(0%,0%,100%);*/
@@ -122,6 +112,30 @@ tr:hover {
 	padding: 3px;
 	margin: 1px;
 	color: white;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(to right, #bdcccc, #d0d0db); /* Standard syntax */
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #c3e6e5;
 }
 
 /*SCRAPPILESCRPASLSCRAPSCRAPPILESCRAPPILESCRPASLDASSCRAPPILESCRPASCRPASLDASPILESCRPASCRAPPILESCRPASLDASSLDASSCRAPPILESCRPASLDASSCRAPPILESCRPASLDASDAS*/

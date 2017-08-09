@@ -13,6 +13,17 @@ var app = {
 
 	initialize: function() {
 		app.getPlaylist();
+		app.initializeNavClick();
+	},
+
+	initializeNavClick: function(){
+		console.log("initializeNavClick: entered");
+		$(function(){
+			var $navButtons = $('li');
+			$navButtons.on('click', function(){
+				console.log(this);
+			});
+		});
 	},
 
 	getPlaylist: function() {
@@ -93,7 +104,7 @@ var app = {
 
 	makeSortedPlaylistHTML: function() {
 		console.log("makeSortedPlaylistHTML: entered");
-		var theHTML = "<h3> Playlist </h3>";
+		var theHTML = "<h3> playlist </h3>";
 		theHTML += "<table class='playlistitems'>";
 		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> Pop </th> <th> BPM </th> </tr>";
 		theHTML += "</table>" ;
@@ -329,7 +340,7 @@ var app = {
 
 	makeRecommendationHTML: function() {
 		console.log("makeRecommendationHTML: entered");
-		var theHTML = "<h3> Recommendations </h3>";
+		var theHTML = "<h3 class= 'rex' > recommendations </h3>";
 		theHTML += "<table class='recommendationstable'>";
 		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> Pop </th> <th> BPM </th> </tr>";
 		theHTML += "</table>" ;
