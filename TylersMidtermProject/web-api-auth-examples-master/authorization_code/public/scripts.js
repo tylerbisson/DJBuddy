@@ -35,7 +35,6 @@ var app = {
 				console.log(err);
 			},
 			success: function(data){
-				console.log(data);
 				console.log("getPlaylist: success");
 				app.playlistTracks = data.tracks.items;
 				app.getBPMandKey();
@@ -195,18 +194,66 @@ var app = {
 			var ids = '';
 			var $tracks = $('.playlist tr');
 			$tracks.on('click', function(){
-				var recommendationID = app.sortedplaylist[this.id].track.id;
-				var recommendationBPM = app.sortedBPMS[this.id].tempo;
-				app.getSpotifyRecommendations(recommendationID, recommendationBPM);
+				switch (true){
+					case (parseInt(this.id)) == 0:
+					var arecommendationID = app.sortedplaylist[this.id].track.id;
+					var arecommendationBPM = app.sortedBPMS[this.id].tempo;
+					var arecommendationIDdown = app.sortedplaylist[parseInt(this.id)+1].track.id;
+					var arecommendationIDdowndown = app.sortedplaylist[parseInt(this.id)+2].track.id;
+					var arecommendationIDdowndowndown = app.sortedplaylist[parseInt(this.id)+3].track.id;
+					var arecommendationIDdowndowndowndown = app.sortedplaylist[parseInt(this.id)+4].track.id;
+					app.getSpotifyRecommendations(arecommendationID, arecommendationBPM, arecommendationIDdown, arecommendationIDdowndown, arecommendationIDdowndowndown, arecommendationIDdowndowndowndown);
+					break;
+					case (parseInt(this.id)) == 1:
+					var brecommendationID = app.sortedplaylist[this.id].track.id;
+					var brecommendationBPM = app.sortedBPMS[this.id].tempo;
+					var brecommendationIDup = app.sortedplaylist[parseInt(this.id)-1].track.id;
+					var brecommendationIDdown = app.sortedplaylist[parseInt(this.id)+1].track.id;
+					var brecommendationIDdowndown = app.sortedplaylist[parseInt(this.id)+2].track.id;
+					var brecommendationIDdowndowndown = app.sortedplaylist[parseInt(this.id)+3].track.id;
+					app.getSpotifyRecommendations(brecommendationID, brecommendationBPM, brecommendationIDup, brecommendationIDdown, brecommendationIDdowndown, brecommendationIDdowndowndown);
+					break;
+					case (parseInt(this.id)) == (app.playlistTracks.length-1):
+					var zrecommendationID = app.sortedplaylist[this.id].track.id;
+					var zrecommendationBPM = app.sortedBPMS[this.id].tempo;
+					var zrecommendationIDup = app.sortedplaylist[parseInt(this.id)-1].track.id;
+					var zrecommendationIDupup = app.sortedplaylist[parseInt(this.id)-2].track.id;
+					var zrecommendationIDupupup = app.sortedplaylist[parseInt(this.id)-3].track.id;
+					var zrecommendationIDupupupup = app.sortedplaylist[parseInt(this.id)-4].track.id;
+					app.getSpotifyRecommendations(zrecommendationID, zrecommendationBPM, zrecommendationIDup, zrecommendationIDupup, zrecommendationIDupupup, zrecommendationIDupupupup);
+					break;
+					case (parseInt(this.id)) == (app.playlistTracks.length-2):
+					var yrecommendationID = app.sortedplaylist[this.id].track.id;
+					var yrecommendationBPM = app.sortedBPMS[this.id].tempo;
+					var yrecommendationIDup = app.sortedplaylist[parseInt(this.id)-1].track.id;
+					var yrecommendationIDupup = app.sortedplaylist[parseInt(this.id)-2].track.id;
+					var yrecommendationIDupupup = app.sortedplaylist[parseInt(this.id)-3].track.id;
+					var yrecommendationIDdown = app.sortedplaylist[parseInt(this.id)+1].track.id;
+					app.getSpotifyRecommendations(yrecommendationID, yrecommendationBPM, yrecommendationIDup, yrecommendationIDupup, yrecommendationIDupupup, yrecommendationIDdown);
+					break;
+					default:
+					var recommendationID = app.sortedplaylist[this.id].track.id;
+					var recommendationBPM = app.sortedBPMS[this.id].tempo;
+					var recommendationIDup = app.sortedplaylist[parseInt(this.id)-1].track.id;
+					var recommendationIDupup = app.sortedplaylist[parseInt(this.id)-2].track.id;
+					var recommendationIDdown = app.sortedplaylist[parseInt(this.id)+1].track.id;
+					var recommendationIDdowndown = app.sortedplaylist[parseInt(this.id)+2].track.id;
+					app.getSpotifyRecommendations(recommendationID, recommendationBPM, recommendationIDup, recommendationIDupup, recommendationIDdown, recommendationIDdowndown);
+					break;
+				}
 			});
 		});
 	},
 
-	getSpotifyRecommendations: function(recommendationID, recommendationBPM) {
+	getSpotifyRecommendations: function(recommendationID, recommendationBPM, recommendationIDup, recommendationIDupup, recommendationIDdown, recommendationIDdowndown) {
 		console.log("getSpotifyRecommendations: initialize");
 		var key = localStorage.getItem("jammer");
 		var spotifyURL = 'https://api.spotify.com/v1/recommendations?seed_tracks=';
 		spotifyURL += recommendationID + ",";
+		spotifyURL += recommendationIDup + ",";
+		spotifyURL += recommendationIDupup + ",";
+		spotifyURL += recommendationIDdown + ",";
+		spotifyURL += recommendationIDdowndown + ",";
 		spotifyURL += "&target_tempo=";
 		spotifyURL += recommendationBPM;
 		spotifyURL += "&limit=50";
