@@ -112,7 +112,6 @@ var app = {
 			moreHTML += "<td class= pop" + i + ">" + app.sortedplaylist[i].track.popularity + "</td>";
 			moreHTML += "<td class= temp" + i + ">" + app.sortedBPMS[i].tempo + "</td>";
 			moreHTML += "</tr>";
-			
 		}
 
 		$('.playlistitems').append(moreHTML);
@@ -131,7 +130,6 @@ var app = {
 
 		for (var z = 0; z < arr.length; z++){
 			switch (true){
-
 				case arr[z] < 60:
 				$(".temp" + z).css("color", '#000000');
 				break;
@@ -506,6 +504,14 @@ var app = {
 		console.log("populateDiscogsModal: entered");
 		var that = id; 
 		var moreHTML = '';
+
+		if (type == 1){
+			moreHTML += '"<tr> <td colspan="2" > <iframe src="https://open.spotify.com/embed/track/' + app.sortedplaylist[that].track.id + '" width="100%" height="500" frameborder="0" allowtransparency="true"></iframe> </td> </tr>';
+		}
+		else{
+			moreHTML += '"<tr> <td colspan="2"> <iframe src="https://open.spotify.com/embed/track/' + app.sortedrecommendedTracks[that].id + '" width="100%" height="500" frameborder="0" allowtransparency="true"></iframe> </td> </tr>';
+		}
+		moreHTML += '<tr> <td colspan= "2"> <h2>Discogs Info</h2> </td> </tr>';
 		moreHTML += "<tr class = oddmod> <td> Artist </td><td>" + artist + "</td></tr>";
 		moreHTML += "<tr> <td> Track </td> <td>" + track + "</td> </tr>";
 		moreHTML += "<tr class = oddmod> <td> Record Name </td> <td>" + record + "</td> </tr>";
@@ -517,15 +523,8 @@ var app = {
 		moreHTML += "<tr class = oddmod> <td> Average Rating </td> <td>" + rating + "</td> </tr>";
 		moreHTML += "<tr> <td> Number of Ratings </td> <td>" + numRatings + "</td> </tr>";
 		moreHTML += "<tr class = oddmod> <td> Discogs Link </td> <td>" + uri + "</td> </tr>";
-		moreHTML +=  "<tr> <td class='the-track'></td></tr>";
-		if (type == 1){
-			moreHTML += "<td> <img src='" + app.sortedplaylist[that].track.album.images[0].url + "'/> </td>";
-			app.trackPreview(app.sortedplaylist[that].track.id);
-		}
-		else{
-			moreHTML += "<td> <img src='" + app.sortedrecommendedTracks[that].album.images[0].url + "'/> </td>";
-			app.trackPreview(app.sortedrecommendedTracks[that].id);
-		}
+		moreHTML += "<tr> <td class='the-track'></td></tr>";
+
 		$('.DiscogsInfo').html(moreHTML);
 	},
 
