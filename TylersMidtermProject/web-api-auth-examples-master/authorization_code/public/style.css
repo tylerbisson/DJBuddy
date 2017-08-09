@@ -4,25 +4,29 @@ body {
 }
 
 h1{
-	/*font: italic 100px/45px Helvetica, Arial, sans-serif;*/
+	font: italic 100px/45px Helvetica, Arial, sans-serif;
 	text-align: center;
 	float: center;
-	color: NavajoWhite;
+	color: Black;
+	text-shadow: 2px 2px 5px #006666;
+	letter-spacing: 7px;
+}
+
+
+h2{
+	font: italic 50px/45px Helvetica, Arial, sans-serif;
+	text-align: center;
+	float: center;
+	color: Black;
 	text-shadow: 2px 2px 5px #006666;
 }
 
-h2{
-	font: italic 60px/45px Helvetica, Arial, sans-serif;
-	text-align: center;
-	float: center;
-	color: NavajoWhite;
-}
-
 h3{
-	font: italic 60px/45px Helvetica, Arial, sans-serif;
+	font: italic 50px/45px Helvetica, Arial, sans-serif;
 	text-align: center;
 	float: center;
-	color: NavajoWhite;
+	color: Black;
+	text-shadow: 2px 2px 5px #006666;
 }
 
 h4{
@@ -69,41 +73,69 @@ th {
 tr {
 	/*color: red;*/
 }
-			
+
 tr.even {
-	background-color: #e0ebeb;
+	background-color: #bdcccc;
 }
 
 tr.oddrec{
-	background-color: #e0e0eb;
+	background-color: #d0d0db;
 }
-		
+
+tr.oddmod{
+	background-color: #d1ccaf;
+}
+
 tr:hover {
 	background-color: #c3e6e5;
 }
 
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%; /* Could be more or less, depending on screen size */
 }
+
+
+
+.chart div {
+	font: 10px sans-serif;
+	/*background-color: rgb(0%,0%,100%);*/
+	text-align: right;
+	padding: 3px;
+	margin: 1px;
+	color: white;
+}
+
+/*SCRAPPILESCRPASLSCRAPSCRAPPILESCRAPPILESCRPASLDASSCRAPPILESCRPASCRPASLDASPILESCRPASCRAPPILESCRPASLDASSLDASSCRAPPILESCRPASLDASSCRAPPILESCRPASLDASDAS*/
+
+/*.playlistitems{ position: top: 10px; }* {
+	box-sizing: border-box;
+	background: PaleGreen;
+	}*/
+
+/*.recommendationitems{ position: top: 10px; }* {
+	box-sizing: border-box;
+	background: PaleGreen;
+
+	}*/
 
 /*img{
 	display: block;
@@ -113,28 +145,29 @@ tr:hover {
 }
 */
 
-.chart div {
-  font: 10px sans-serif;
-  /*background-color: rgb(0%,0%,100%);*/
-  text-align: right;
-  padding: 3px;
-  margin: 1px;
-  color: white;
+/*h1:hover {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
 
-/*.playlistitems{ position: top: 10px; }* {
-	box-sizing: border-box;
-	background: PaleGreen;
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }*/
-
-/*.recommendationitems{ position: top: 10px; }* {
-	box-sizing: border-box;
-	background: PaleGreen;
-
-}*/
-
-
-
 
 

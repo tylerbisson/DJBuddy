@@ -9,7 +9,7 @@ var app = {
 	sortedplaylist: [],
 	sortedBPMS: [],
 
-	/////////////////////////////////////////////////////////////INITIALIZATION/////////////////////////////////////////////////////////////POOOPO
+	/////////////////////////////////////////////////////////////INITIALIZATION/////////////////////////////////////////////////////////////
 
 	initialize: function() {
 		app.getPlaylist();
@@ -96,7 +96,7 @@ var app = {
 		console.log("makeSortedPlaylistHTML: entered");
 		var theHTML = "<h3> Playlist </h3>";
 		theHTML += "<table class='playlistitems'>";
-		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> BPM </th> </tr>";
+		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> BPM </th> <th> Pop </th> </tr>";
 		theHTML += "</table>" ;
 		$('main').append(theHTML);
 		var moreHTML = '';
@@ -109,7 +109,8 @@ var app = {
 			}
 			moreHTML += "<td>" + app.sortedplaylist[i].track.artists[0].name + "</td>";
 			moreHTML += "<td>" + app.sortedplaylist[i].track.name + "</td>";
-			moreHTML += "<td>" + app.sortedBPMS[i].tempo + "</td>";
+			moreHTML += "<td class= temp" + i + ">" + app.sortedBPMS[i].tempo + "</td>";
+			moreHTML += "<td class= pop" + i + ">" + app.sortedplaylist[i].track.popularity + "</td>";
 			moreHTML += "</tr>";
 			
 		}
@@ -120,14 +121,17 @@ var app = {
 			return el.track.popularity;
 		});
 
-		d3.selectAll(".playlistitems")
-		// .forEach()
-		.data(arr)
-		.style("color", function(d) { return "hsl(" + Math.round(250 * ((100-d)/100)) + ",100%,50%)"; });
+		for (var j = 0; j < app.playlistTracks.length; j++){
+			$(".pop" + j).css("color", "hsl(" + Math.round(250 * ((100-arr[j])/100)) + ",100%,50%)");
+		}
+
+		// for (var k = 0; k < app.playlistTracks.length; k++){
+		// 	$(".temp" + k).css("color", "hsl(" + Math.round(250 * ((100-arr[k])/100)) + ",100%,50%)");
+		// }
 
 		app.initializeSortedClick();
 		app.makeDiscogsModal();
-		app.deeThreeExperiment();
+		app.deeThreeExperimentTWO();
 	},
 
 	/////////////////////////////////////////////////////////////RECOMMENDATIONS_COLUMN/////////////////////////////////////////////////////////////
@@ -227,7 +231,7 @@ var app = {
 		console.log("makeRecommendationHTML: entered");
 		var theHTML = "<h3> Recommendations </h3>";
 		theHTML += "<table class='recommendations'>";
-		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> BPM </th> </tr>";
+		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> BPM </th> <th> Pop </th> </tr>";
 		theHTML += "</table>" ;
 		$('nav').html(theHTML);
 		var moreHTML = '';
@@ -241,9 +245,19 @@ var app = {
 			moreHTML += "<td>" + app.sortedrecommendedTracks[i].artists[0].name + "</td>";
 			moreHTML += "<td>" + app.sortedrecommendedTracks[i].name + "</td>";
 			moreHTML += "<td>" + app.sortedrecommendationBPMS[i].tempo + "</td>";
+			moreHTML += "<td class= recpop" + i + ">" + app.sortedrecommendedTracks[i].popularity + "</td>";
 			moreHTML += "</tr>";
 		}
+
 		$('.recommendations').append(moreHTML);
+
+		var arr = $.map(app.sortedrecommendedTracks, function (el) {
+			return el.popularity;
+		});
+
+		for (var k = 0; k < app.sortedrecommendedTracks.length; k++){
+			$(".recpop" + k).css("color", "hsl(" + Math.round(250 * ((100-arr[k])/100)) + ",100%,50%)");
+		}
 		app.makeRecommendationDiscogsModal();
 	},
 
@@ -379,27 +393,26 @@ var app = {
 		console.log("populateDiscogsModal: entered");
 		var that = id; 
 		var moreHTML = '';
-		moreHTML += "<tr class = even> <td> Artist </td><td>" + artist + "</td></tr>";
+		moreHTML += "<tr class = oddmod> <td> Artist </td><td>" + artist + "</td></tr>";
 		moreHTML += "<tr> <td> Track </td> <td>" + track + "</td> </tr>";
-		moreHTML += "<tr> <td> Record Name </td> <td>" + record + "</td> </tr>";
+		moreHTML += "<tr class = oddmod> <td> Record Name </td> <td>" + record + "</td> </tr>";
 		moreHTML += "<tr> <td> Release Date </td> <td>" + year + "</td> </tr>";
-		moreHTML += "<tr> <td> Number For Sale </td> <td>" + numForSale + "</td> </tr>";
+		moreHTML += "<tr class = oddmod> <td> Number For Sale </td> <td>" + numForSale + "</td> </tr>";
 		moreHTML += "<tr> <td> Lowest Price Available </td> <td> $" + lowestPrice + "</td> </tr>";
-		moreHTML += "<tr> <td> Owned By </td> <td>" + have + "</td> </tr>";
+		moreHTML += "<tr class = oddmod> <td> Owned By </td> <td>" + have + "</td> </tr>";
 		moreHTML += "<tr> <td>  Wanted By </td> <td>" + want + "</td> </tr>";
-		moreHTML += "<tr> <td> Average Rating </td> <td>" + rating + "</td> </tr>";
+		moreHTML += "<tr class = oddmod> <td> Average Rating </td> <td>" + rating + "</td> </tr>";
 		moreHTML += "<tr> <td> Number of Ratings </td> <td>" + numRatings + "</td> </tr>";
-		moreHTML += "<tr> <td> Discogs Link </td> <td>" + uri + "</td> </tr>";
+		moreHTML += "<tr class = oddmod> <td> Discogs Link </td> <td>" + uri + "</td> </tr>";
 		moreHTML +=  "<tr> <td class='the-track'></td></tr>";
 		if (type == 1){
-			app.trackPreview(app.sortedplaylist[that].track.id);
 			moreHTML += "<td> <img src='" + app.sortedplaylist[that].track.album.images[0].url + "'/> </td>";
+			app.trackPreview(app.sortedplaylist[that].track.id);
 		}
 		else{
-			app.trackPreview(app.sortedrecommendedTracks[that].id);
 			moreHTML += "<td> <img src='" + app.sortedrecommendedTracks[that].album.images[0].url + "'/> </td>";
+			app.trackPreview(app.sortedrecommendedTracks[that].id);
 		}
-
 		$('.DiscogsInfo').html(moreHTML);
 	},
 
@@ -431,22 +444,190 @@ var app = {
 		});
 	},
 
-/////////////////////////////////////////////////////////////DATA_VISUALIZATION/////////////////////////////////////////////////////////////
 
-deeThreeExperiment: function(){
+/////////////////////////////////////////////////////////////DATA_VISUALIZATION_PIE/////////////////////////////////////////////////////////////
 
-	var arr = $.map(app.playlistTracks, function (el) {
-		return el.track.popularity;
+
+deeThreeExperimentTWO: function(){
+
+	var a=0;
+	var b=0;
+	var c=0;
+	var d=0;
+	var e=0;
+	var f=0;
+	var g=0;
+	var h=0;
+	var i=0;
+	var j=0;
+	var k=0;
+	var l=0;
+	var m=0;
+	var n=0;
+	var o=0;
+	var p=0;
+
+
+	var arr = $.map(app.playlistBPMS, function (el) {
+		return el.tempo;
 	});
 
-	d3.select(".chart")
-	.selectAll("div")
-	.data(arr)
-	.enter()
-	.append("div")
-	.style("width", function(d) { return d * 10 + "px"; })
-	.style("background-color", function(d) { return "hsl(" + Math.round(250 * ((100-d)/100)) + ",100%,50%)"; })
-	.text(function(d) { return d; });
+	console.log(arr);
+
+	for (var z = 0; z < arr.length; z++){
+		switch (true){
+
+			case arr[z] < 60:
+			a+=1;
+			break;
+			case arr[z] > 60 && arr[z] < 70:
+			b+=1;
+			break;
+			case arr[z] > 70 && arr[z] < 80:
+			c+=1;
+			break;
+			case arr[z] > 80 && arr[z] < 90:
+			d+=1;
+			break;
+			case arr[z] > 90 && arr[z] < 100:
+			e+=1;
+			break;
+			case arr[z] > 100 && arr[z] < 110:
+			f+=1;
+			break;
+			case arr[z] > 110 && arr[z] < 120:
+			g+=1;
+			break;
+			case arr[z] > 120 && arr[z] < 130:
+			h+=1;
+			break;
+			case arr[z] > 130 && arr[z] < 140:
+			i+=1;
+			break;
+			case arr[z] > 140 && arr[z] < 150:
+			j+=1;
+			break;
+			case arr[z] > 150 && arr[z] < 160:
+			k+=1;
+			break;
+			case arr[z] > 160 && arr[z] < 170:
+			l+=1;
+			break;
+			case arr[z] > 170 && arr[z] < 180:
+			m+=1;
+			break;
+			case arr[z] > 180 && arr[z] < 190:
+			n+=1;
+			break;
+			case arr[z] > 190 && arr[z] < 200:
+			o+=1;
+			break;
+			case arr[z] > 200:
+			p+=1;
+			break;	
+		}
+	}
+
+	console.log(h);
+
+
+	(function(d3) {
+		'use strict';
+
+		var dataset = [
+		{ label: '-60 bpm', count: a },
+		{ label: '60 - 70 bpm', count: b },
+		{ label: '70 - 80 bpm', count: c },
+		{ label: '80 - 90 bpm', count: d },
+		{ label: '90 - 100 bpm', count: e },
+		{ label: '100 - 110 bpm', count: f },
+		{ label: '110 - 120 bpm', count: g },
+		{ label: '120 - 130 bpm', count: h },
+		{ label: '130 - 140 bpm', count: i },
+		{ label: '140 - 150 bpm', count: j },
+		{ label: '150 - 160 bpm', count: k },
+		{ label: '160 - 170 bpm', count: l },
+		{ label: '170 - 180 bpm', count: m },
+		{ label: '180 - 190 bpm', count: n },
+		{ label: '190 - 200 bpm', count: o },
+		{ label: '200+ bpm', count: p },
+		];
+
+		var width = 600;
+		var height = 600;
+		var radius = Math.min(width, height) / 2;
+		var donutWidth = 75;
+		var legendRectSize = 18;                                  
+		var legendSpacing = 4;                                    
+
+		var color = d3.scaleOrdinal().range([
+			'#000000', 
+			'#000066', 
+			'#0000ff', 
+			'#0080ff', 
+			'#00bfff', 
+			'#00ffff', 
+			'#00ffbf', 
+			'#00ff00', 
+			'#bfff00', 
+			'#ffff00', 
+			'#ffbf00', 
+			'#ff8000', 
+			'#ff4000', 
+			'#ff0000', 
+			'#800040', 
+			'#660033']);
+
+		var svg = d3.select('#chart')
+		.append('svg')
+		.attr('width', width)
+		.attr('height', height)
+		.append('g')
+		.attr('transform', 'translate(' + (width / 2) +
+			',' + (height / 2) + ')');
+
+		var arc = d3.arc()
+		.innerRadius(radius - donutWidth)
+		.outerRadius(radius);
+
+		var pie = d3.pie()
+		.value(function(d) { return d.count; })
+		.sort(null);
+
+		var path = svg.selectAll('path')
+		.data(pie(dataset))
+		.enter()
+		.append('path')
+		.attr('d', arc)
+		.attr('fill', function(d, i) {
+			return color(d.data.label);
+		});
+
+		var legend = svg.selectAll('.legend')                     
+		.data(color.domain())                                   
+		.enter()                                                
+		.append('g')                                            
+		.attr('class', 'legend')                                
+		.attr('transform', function(d, i) {                     
+			var height = legendRectSize + legendSpacing;          
+			var offset =  height * color.domain().length / 2;     
+			var horz = -2 * legendRectSize;                       
+			var vert = i * height - offset;                       
+			return 'translate(' + horz + ',' + vert + ')';        
+		});                                                     
+
+		legend.append('rect')                                     
+		.attr('width', legendRectSize)                          
+		.attr('height', legendRectSize)                         
+		.style('fill', color)                                   
+		.style('stroke', color);                                
+
+		legend.append('text')                                     
+		.attr('x', legendRectSize + legendSpacing)              
+		.attr('y', legendRectSize - legendSpacing)              
+		.text(function(d) { return d; });                       
+
+	})(window.d3);
 
 },
 };
@@ -472,12 +653,26 @@ deeThreeExperiment: function(){
 
 
 
-
-
-
-
-
 //  SCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILE SCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILESCRAP PILE
+
+/////////////////////////////////////////////////////////////DATA_VISUALIZATION/////////////////////////////////////////////////////////////
+
+// deeThreeExperiment: function(){
+
+// 	var arr = $.map(app.playlistTracks, function (el) {
+// 		return el.track.popularity;
+// 	});
+
+// 	d3.select(".chart")
+// 	.selectAll("div")
+// 	.data(arr)
+// 	.enter()
+// 	.append("div")
+// 	.style("width", function(d) { return d * 10 + "px"; })
+// 	.style("background-color", function(d) { return "hsl(" + Math.round(250 * ((100-d)/100)) + ",100%,50%)"; })
+// 	.text(function(d) { return d; });
+
+// },
 
 /*
 
@@ -543,3 +738,7 @@ curl -X GET "https://api.spotify.com/v1/tracks/3n3Ppam7vgaVa1iaRUc9Lp" -H "Autho
 	// 		}
 	// 	});
 	// },
+			// d3.selectAll(".playlistitems")
+		// // .forEach()
+		// .data(arr)
+		// .style("color", function(d) { return "hsl(" + Math.round(250 * ((100-d)/100)) + ",100%,50%)"; });
