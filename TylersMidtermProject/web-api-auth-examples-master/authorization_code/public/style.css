@@ -38,14 +38,14 @@ h4{
 	white-space: nowrap;
 }
 
-main{
+.playlist{
 	float: left;
 	width: 50%;
 	position: relative;
 }
 
 
-nav {
+.recommendations{
 	float: right;
 	width: 50%;
 	position: relative;

@@ -35,7 +35,7 @@ var app = {
 				console.log(err);
 			},
 			success: function(data){
-				//console.log(data);
+				console.log(data);
 				console.log("getPlaylist: success");
 				app.playlistTracks = data.tracks.items;
 				app.getBPMandKey();
@@ -96,9 +96,9 @@ var app = {
 		console.log("makeSortedPlaylistHTML: entered");
 		var theHTML = "<h3> Playlist </h3>";
 		theHTML += "<table class='playlistitems'>";
-		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> BPM </th> <th> Pop </th> </tr>";
+		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> Pop </th> <th> BPM </th> </tr>";
 		theHTML += "</table>" ;
-		$('main').append(theHTML);
+		$('.playlist').append(theHTML);
 		var moreHTML = '';
 		for (var i = 0; i < app.playlistTracks.length; i++){
 			if (i % 2 == 0){
@@ -109,25 +109,79 @@ var app = {
 			}
 			moreHTML += "<td>" + app.sortedplaylist[i].track.artists[0].name + "</td>";
 			moreHTML += "<td>" + app.sortedplaylist[i].track.name + "</td>";
-			moreHTML += "<td class= temp" + i + ">" + app.sortedBPMS[i].tempo + "</td>";
 			moreHTML += "<td class= pop" + i + ">" + app.sortedplaylist[i].track.popularity + "</td>";
+			moreHTML += "<td class= temp" + i + ">" + app.sortedBPMS[i].tempo + "</td>";
 			moreHTML += "</tr>";
 			
 		}
 
 		$('.playlistitems').append(moreHTML);
 
-		var arr = $.map(app.sortedplaylist, function (el) {
+		var arrpop = $.map(app.sortedplaylist, function (el) {
 			return el.track.popularity;
 		});
 
 		for (var j = 0; j < app.playlistTracks.length; j++){
-			$(".pop" + j).css("color", "hsl(" + Math.round(250 * ((100-arr[j])/100)) + ",100%,50%)");
+			$(".pop" + j).css("color", "hsl(" + Math.round(250 * ((100-arrpop[j])/100)) + ",100%,50%)");
 		}
 
-		// for (var k = 0; k < app.playlistTracks.length; k++){
-		// 	$(".temp" + k).css("color", "hsl(" + Math.round(250 * ((100-arr[k])/100)) + ",100%,50%)");
-		// }
+		var arr = $.map(app.sortedBPMS, function (el) {
+			return el.tempo;
+		});
+
+		for (var z = 0; z < arr.length; z++){
+			switch (true){
+
+				case arr[z] < 60:
+				$(".temp" + z).css("color", '#000000');
+				break;
+				case arr[z] > 60 && arr[z] < 70:
+				$(".temp" + z).css("color", '#000066');
+				break;
+				case arr[z] > 70 && arr[z] < 80:
+				$(".temp" + z).css("color", '#0000ff');
+				break;
+				case arr[z] > 80 && arr[z] < 90:
+				$(".temp" + z).css("color", '#0080ff');
+				break;
+				case arr[z] > 90 && arr[z] < 100:
+				$(".temp" + z).css("color", '#00bfff');
+				break;
+				case arr[z] > 100 && arr[z] < 110:
+				$(".temp" + z).css("color", '#00ffff');
+				break;
+				case arr[z] > 110 && arr[z] < 120:
+				$(".temp" + z).css("color", '#00ffbf');
+				break;
+				case arr[z] > 120 && arr[z] < 130:
+				$(".temp" + z).css("color", '#00ff00');
+				break;
+				case arr[z] > 130 && arr[z] < 140:
+				$(".temp" + z).css("color", '#bfff00');
+				break;
+				case arr[z] > 140 && arr[z] < 150:
+				$(".temp" + z).css("color", '#ffff00');
+				break;
+				case arr[z] > 150 && arr[z] < 160:
+				$(".temp" + z).css("color", '#ffbf00');
+				break;
+				case arr[z] > 160 && arr[z] < 170:
+				$(".temp" + z).css("color", '#ff8000');
+				break;
+				case arr[z] > 170 && arr[z] < 180:
+				$(".temp" + z).css("color", '#ff4000');
+				break;
+				case arr[z] > 180 && arr[z] < 190:
+				$(".temp" + z).css("color", '#ff0000');
+				break;
+				case arr[z] > 190 && arr[z] < 200:
+				$(".temp" + z).css("color", '#800040');
+				break;
+				case arr[z] > 200:
+				$(".temp" + z).css("color", '#660033');
+				break;	
+			}
+		}
 
 		app.initializeSortedClick();
 		app.makeDiscogsModal();
@@ -141,7 +195,7 @@ var app = {
 		console.log("initializeSortedClick: entered");
 		$(function(){
 			var ids = '';
-			var $tracks = $('main tr');
+			var $tracks = $('.playlist tr');
 			$tracks.on('click', function(){
 				var recommendationID = app.sortedplaylist[this.id].track.id;
 				var recommendationBPM = app.sortedBPMS[this.id].tempo;
@@ -230,10 +284,10 @@ var app = {
 	makeRecommendationHTML: function() {
 		console.log("makeRecommendationHTML: entered");
 		var theHTML = "<h3> Recommendations </h3>";
-		theHTML += "<table class='recommendations'>";
-		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> BPM </th> <th> Pop </th> </tr>";
+		theHTML += "<table class='recommendationstable'>";
+		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> Pop </th> <th> BPM </th> </tr>";
 		theHTML += "</table>" ;
-		$('nav').html(theHTML);
+		$('.recommendations').html(theHTML);
 		var moreHTML = '';
 		for (var i = 0; i < app.sortedrecommendedTracks.length; i++){
 			if (i % 2 != 0){
@@ -244,20 +298,79 @@ var app = {
 			}
 			moreHTML += "<td>" + app.sortedrecommendedTracks[i].artists[0].name + "</td>";
 			moreHTML += "<td>" + app.sortedrecommendedTracks[i].name + "</td>";
-			moreHTML += "<td>" + app.sortedrecommendationBPMS[i].tempo + "</td>";
 			moreHTML += "<td class= recpop" + i + ">" + app.sortedrecommendedTracks[i].popularity + "</td>";
+			moreHTML += "<td class= rectemp" + i + ">" + app.sortedrecommendationBPMS[i].tempo + "</td>";
 			moreHTML += "</tr>";
 		}
 
-		$('.recommendations').append(moreHTML);
+		$('.recommendationstable').append(moreHTML);
 
-		var arr = $.map(app.sortedrecommendedTracks, function (el) {
+		var poparr = $.map(app.sortedrecommendedTracks, function (el) {
 			return el.popularity;
 		});
 
 		for (var k = 0; k < app.sortedrecommendedTracks.length; k++){
-			$(".recpop" + k).css("color", "hsl(" + Math.round(250 * ((100-arr[k])/100)) + ",100%,50%)");
+			$(".recpop" + k).css("color", "hsl(" + Math.round(250 * ((100-poparr[k])/100)) + ",100%,50%)");
 		}
+
+		var arr = $.map(app.sortedrecommendationBPMS, function (el) {
+			return el.tempo;
+		});
+
+		for (var z = 0; z < arr.length; z++){
+			switch (true){
+
+				case arr[z] < 60:
+				$(".rectemp" + z).css("color", '#000000');
+				break;
+				case arr[z] > 60 && arr[z] < 70:
+				$(".rectemp" + z).css("color", '#000066');
+				break;
+				case arr[z] > 70 && arr[z] < 80:
+				$(".rectemp" + z).css("color", '#0000ff');
+				break;
+				case arr[z] > 80 && arr[z] < 90:
+				$(".rectemp" + z).css("color", '#0080ff');
+				break;
+				case arr[z] > 90 && arr[z] < 100:
+				$(".rectemp" + z).css("color", '#00bfff');
+				break;
+				case arr[z] > 100 && arr[z] < 110:
+				$(".rectemp" + z).css("color", '#00ffff');
+				break;
+				case arr[z] > 110 && arr[z] < 120:
+				$(".rectemp" + z).css("color", '#00ffbf');
+				break;
+				case arr[z] > 120 && arr[z] < 130:
+				$(".rectemp" + z).css("color", '#00ff00');
+				break;
+				case arr[z] > 130 && arr[z] < 140:
+				$(".rectemp" + z).css("color", '#bfff00');
+				break;
+				case arr[z] > 140 && arr[z] < 150:
+				$(".rectemp" + z).css("color", '#ffff00');
+				break;
+				case arr[z] > 150 && arr[z] < 160:
+				$(".rectemp" + z).css("color", '#ffbf00');
+				break;
+				case arr[z] > 160 && arr[z] < 170:
+				$(".rectemp" + z).css("color", '#ff8000');
+				break;
+				case arr[z] > 170 && arr[z] < 180:
+				$(".rectemp" + z).css("color", '#ff4000');
+				break;
+				case arr[z] > 180 && arr[z] < 190:
+				$(".rectemp" + z).css("color", '#ff0000');
+				break;
+				case arr[z] > 190 && arr[z] < 200:
+				$(".rectemp" + z).css("color", '#800040');
+				break;
+				case arr[z] > 200:
+				$(".rectemp" + z).css("color", '#660033');
+				break;	
+			}
+		}
+
 		app.makeRecommendationDiscogsModal();
 	},
 
@@ -267,7 +380,7 @@ var app = {
 		console.log("makeDiscogsModal: entered");
 		$(function(){
 			var ids = '';
-			var $tracks = $('main tr');
+			var $tracks = $('.playlist tr');
 			var modal = document.getElementById('myModal');
 			$tracks.on("contextmenu", function(){
 				app.DiscogsSearch(app.sortedplaylist[this.id].track.name, app.sortedplaylist[this.id].track.artists[0].name, this.id, 1);
@@ -291,7 +404,7 @@ var app = {
 		console.log("makeRecommendationDiscogsModal: entered");
 		$(function(){
 			var ids = '';
-			var $tracks = $('nav tr');
+			var $tracks = $('.recommendations tr');
 			var modal = document.getElementById('myModal');
 			$tracks.on("contextmenu", function(){
 				app.DiscogsSearch(app.sortedrecommendedTracks[this.id].name, app.sortedrecommendedTracks[this.id].artists[0].name, this.id, 0);
@@ -472,8 +585,6 @@ deeThreeExperimentTWO: function(){
 		return el.tempo;
 	});
 
-	console.log(arr);
-
 	for (var z = 0; z < arr.length; z++){
 		switch (true){
 
@@ -527,9 +638,6 @@ deeThreeExperimentTWO: function(){
 			break;	
 		}
 	}
-
-	console.log(h);
-
 
 	(function(d3) {
 		'use strict';
