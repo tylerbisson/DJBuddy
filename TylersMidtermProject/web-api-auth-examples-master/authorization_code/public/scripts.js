@@ -197,7 +197,7 @@ var app = {
 			$tracks.on('click', function(){
 				var recommendationID = app.sortedplaylist[this.id].track.id;
 				var recommendationBPM = app.sortedBPMS[this.id].tempo;
-				app.getSpotifyRecommendations(recommendationID);
+				app.getSpotifyRecommendations(recommendationID, recommendationBPM);
 			});
 		});
 	},
@@ -207,8 +207,9 @@ var app = {
 		var key = localStorage.getItem("jammer");
 		var spotifyURL = 'https://api.spotify.com/v1/recommendations?seed_tracks=';
 		spotifyURL += recommendationID + ",";
-		spotifyURL += "&tempo=";
-		spotifyURL += recommendationBPM + ",";
+		spotifyURL += "&target_tempo=";
+		spotifyURL += recommendationBPM;
+		spotifyURL += "&limit=50";
 		var mySpotifyKey = key;
 		var mySpotifyReqURL = spotifyURL;
 		$.ajax({
