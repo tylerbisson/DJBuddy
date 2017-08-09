@@ -486,6 +486,7 @@ var app = {
 			},
 			success: function(data){
 				console.log("DiscogsSearch: success");
+				console.log(data);
 				console.log(data.results[0].resource_url);
 				app.getDiscogsInfo(data.results[0].resource_url, id, type, track);
 			}
@@ -506,7 +507,8 @@ var app = {
 			success: function(data){
 				console.log("getDiscogsInfo: success");
 
-				if(data.community && data.uri){
+				switch (true){
+					case data.community && data.uri:
 					app.populateDiscogsModal(
 						data.artists[0].name, 
 						track, 
@@ -521,14 +523,38 @@ var app = {
 						"N/A", 
 						id, 
 						type);
-				}
-				// if(!data.community && data.uri){
-				// 	app.populateDiscogsModal(data.artists[0].name, data.title, data.year, data.num_for_sale, data.lowest_price, "N/A", "N/A", "N/A", "N/A", data.uri, id, type);
-				// }
-				// if(data.community && data.uri){
-				// 	app.populateDiscogsModal(data.artists[0].name, data.title, data.year, data.num_for_sale, data.lowest_price, data.community.have, data.community.want, data.community.rating.average, data.community.rating.count, data.uri, id, type);
-				// }
-				else{
+					break;
+					case !data.community && data.uri:
+					app.populateDiscogsModal(
+						data.artists[0].name, 
+						data.title, 
+						data.year, 
+						data.num_for_sale, 
+						data.lowest_price, 
+						"N/A", 
+						"N/A", 
+						"N/A", 
+						"N/A", 
+						data.uri, 
+						id, 
+						type);
+					break;
+					case data.community && !data.uri:
+					app.populateDiscogsModal(
+						data.artists[0].name, 
+						data.title, 
+						data.year, 
+						data.num_for_sale, 
+						data.lowest_price, 
+						data.community.have, 
+						data.community.want, 
+						data.community.rating.average, 
+						data.community.rating.count, 
+						data.uri, 
+						id, 
+						type);
+					break;
+					default:
 					app.populateDiscogsModal(
 						data.artists[0].name, 
 						track, 
