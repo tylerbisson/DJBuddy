@@ -9,12 +9,25 @@ var app = {
 	sortedplaylist: [],
 	sortedBPMS: [],
 
+	/////////////////////////////////////////////////////////////SEARCH/////////////////////////////////////////////////////////////
+
+	search: function() {
+
+	// send a chat msg
+	$("#playlistSearch").click(function(){
+	var query = $('#searchInput').val();
+	var pos = query.search("playlist:");
+	firstPos = pos + 9;
+	var playlistID = query.slice(firstPos, query.length);
+
+	app.getPlaylist(playlistID);
+	app.initializeNavClick();
+
+});
+},
+
 	/////////////////////////////////////////////////////////////INITIALIZATION/////////////////////////////////////////////////////////////
 
-	initialize: function() {
-		app.getPlaylist();
-		app.initializeNavClick();
-	},
 
 	initializeNavClick: function(){
 		console.log("initializeNavClick: entered");
@@ -26,12 +39,12 @@ var app = {
 		});
 	},
 
-	getPlaylist: function() {
+	getPlaylist: function(playlistID) {
 		var key = localStorage.getItem("jammer");
 		console.log("getPlaylist: initialize");
 		var spotifyURL = 'https://api.spotify.com/v1/users/';
 		var userID = "122514310";
-		var playlistID = "77fAYvRZgDXuBoTFxfMPbK";
+		// var ID = "77fAYvRZgDXuBoTFxfMPbK";
 		var mySpotifyKey = key;
 		var mySpotifyReqURL = spotifyURL + userID + "/playlists/" + playlistID;
 		$.ajax({
