@@ -143,49 +143,49 @@ var app = {
 				case arr[z] < 60:
 				$(".temp" + z).css("color", '#000000');
 				break;
-				case arr[z] > 60 && arr[z] < 70:
+				case arr[z] >= 60 && arr[z] < 70:
 				$(".temp" + z).css("color", '#000066');
 				break;
-				case arr[z] > 70 && arr[z] < 80:
+				case arr[z] >= 70 && arr[z] < 80:
 				$(".temp" + z).css("color", '#0000ff');
 				break;
-				case arr[z] > 80 && arr[z] < 90:
+				case arr[z] >= 80 && arr[z] < 90:
 				$(".temp" + z).css("color", '#0080ff');
 				break;
-				case arr[z] > 90 && arr[z] < 100:
+				case arr[z] >= 90 && arr[z] < 100:
 				$(".temp" + z).css("color", '#00bfff');
 				break;
-				case arr[z] > 100 && arr[z] < 110:
+				case arr[z] >= 100 && arr[z] < 110:
 				$(".temp" + z).css("color", '#00ffff');
 				break;
-				case arr[z] > 110 && arr[z] < 120:
+				case arr[z] >= 110 && arr[z] < 120:
 				$(".temp" + z).css("color", '#00ffbf');
 				break;
-				case arr[z] > 120 && arr[z] < 130:
+				case arr[z] >= 120 && arr[z] < 130:
 				$(".temp" + z).css("color", '#00ff00');
 				break;
-				case arr[z] > 130 && arr[z] < 140:
+				case arr[z] >= 130 && arr[z] < 140:
 				$(".temp" + z).css("color", '#bfff00');
 				break;
-				case arr[z] > 140 && arr[z] < 150:
+				case arr[z] >= 140 && arr[z] < 150:
 				$(".temp" + z).css("color", '#ffff00');
 				break;
-				case arr[z] > 150 && arr[z] < 160:
+				case arr[z] >= 150 && arr[z] < 160:
 				$(".temp" + z).css("color", '#ffbf00');
 				break;
-				case arr[z] > 160 && arr[z] < 170:
+				case arr[z] >= 160 && arr[z] < 170:
 				$(".temp" + z).css("color", '#ff8000');
 				break;
-				case arr[z] > 170 && arr[z] < 180:
+				case arr[z] >= 170 && arr[z] < 180:
 				$(".temp" + z).css("color", '#ff4000');
 				break;
-				case arr[z] > 180 && arr[z] < 190:
+				case arr[z] >= 180 && arr[z] < 190:
 				$(".temp" + z).css("color", '#ff0000');
 				break;
-				case arr[z] > 190 && arr[z] < 200:
+				case arr[z] >= 190 && arr[z] < 200:
 				$(".temp" + z).css("color", '#800040');
 				break;
-				case arr[z] > 200:
+				case arr[z] >= 200:
 				$(".temp" + z).css("color", '#660033');
 				break;	
 			}
@@ -380,49 +380,49 @@ var app = {
 				case arr[z] < 60:
 				$(".rectemp" + z).css("color", '#000000');
 				break;
-				case arr[z] > 60 && arr[z] < 70:
+				case arr[z] >= 60 && arr[z] < 70:
 				$(".rectemp" + z).css("color", '#000066');
 				break;
-				case arr[z] > 70 && arr[z] < 80:
+				case arr[z] >= 70 && arr[z] < 80:
 				$(".rectemp" + z).css("color", '#0000ff');
 				break;
-				case arr[z] > 80 && arr[z] < 90:
+				case arr[z] >= 80 && arr[z] < 90:
 				$(".rectemp" + z).css("color", '#0080ff');
 				break;
-				case arr[z] > 90 && arr[z] < 100:
+				case arr[z] >= 90 && arr[z] < 100:
 				$(".rectemp" + z).css("color", '#00bfff');
 				break;
-				case arr[z] > 100 && arr[z] < 110:
+				case arr[z] >= 100 && arr[z] < 110:
 				$(".rectemp" + z).css("color", '#00ffff');
 				break;
-				case arr[z] > 110 && arr[z] < 120:
+				case arr[z] >= 110 && arr[z] < 120:
 				$(".rectemp" + z).css("color", '#00ffbf');
 				break;
-				case arr[z] > 120 && arr[z] < 130:
+				case arr[z] >= 120 && arr[z] < 130:
 				$(".rectemp" + z).css("color", '#00ff00');
 				break;
-				case arr[z] > 130 && arr[z] < 140:
+				case arr[z] >= 130 && arr[z] < 140:
 				$(".rectemp" + z).css("color", '#bfff00');
 				break;
-				case arr[z] > 140 && arr[z] < 150:
+				case arr[z] >= 140 && arr[z] < 150:
 				$(".rectemp" + z).css("color", '#ffff00');
 				break;
-				case arr[z] > 150 && arr[z] < 160:
+				case arr[z] >= 150 && arr[z] < 160:
 				$(".rectemp" + z).css("color", '#ffbf00');
 				break;
-				case arr[z] > 160 && arr[z] < 170:
+				case arr[z] >= 160 && arr[z] < 170:
 				$(".rectemp" + z).css("color", '#ff8000');
 				break;
-				case arr[z] > 170 && arr[z] < 180:
+				case arr[z] >= 170 && arr[z] < 180:
 				$(".rectemp" + z).css("color", '#ff4000');
 				break;
-				case arr[z] > 180 && arr[z] < 190:
+				case arr[z] >= 180 && arr[z] < 190:
 				$(".rectemp" + z).css("color", '#ff0000');
 				break;
-				case arr[z] > 190 && arr[z] < 200:
+				case arr[z] >= 190 && arr[z] < 200:
 				$(".rectemp" + z).css("color", '#800040');
 				break;
-				case arr[z] > 200:
+				case arr[z] >= 200:
 				$(".rectemp" + z).css("color", '#660033');
 				break;	
 			}
@@ -675,49 +675,49 @@ deeThreeExperimentTWO: function(){
 			case arr[z] < 60:
 			a+=1;
 			break;
-			case arr[z] > 60 && arr[z] < 70:
+			case arr[z] >= 60 && arr[z] < 70:
 			b+=1;
 			break;
-			case arr[z] > 70 && arr[z] < 80:
+			case arr[z] >= 70 && arr[z] < 80:
 			c+=1;
 			break;
-			case arr[z] > 80 && arr[z] < 90:
+			case arr[z] >= 80 && arr[z] < 90:
 			d+=1;
 			break;
-			case arr[z] > 90 && arr[z] < 100:
+			case arr[z] >= 90 && arr[z] < 100:
 			e+=1;
 			break;
-			case arr[z] > 100 && arr[z] < 110:
+			case arr[z] >= 100 && arr[z] < 110:
 			f+=1;
 			break;
-			case arr[z] > 110 && arr[z] < 120:
+			case arr[z] >= 110 && arr[z] < 120:
 			g+=1;
 			break;
-			case arr[z] > 120 && arr[z] < 130:
+			case arr[z] >= 120 && arr[z] < 130:
 			h+=1;
 			break;
-			case arr[z] > 130 && arr[z] < 140:
+			case arr[z] >= 130 && arr[z] < 140:
 			i+=1;
 			break;
-			case arr[z] > 140 && arr[z] < 150:
+			case arr[z] >= 140 && arr[z] < 150:
 			j+=1;
 			break;
-			case arr[z] > 150 && arr[z] < 160:
+			case arr[z] >= 150 && arr[z] < 160:
 			k+=1;
 			break;
-			case arr[z] > 160 && arr[z] < 170:
+			case arr[z] >= 160 && arr[z] < 170:
 			l+=1;
 			break;
-			case arr[z] > 170 && arr[z] < 180:
+			case arr[z] >= 170 && arr[z] < 180:
 			m+=1;
 			break;
-			case arr[z] > 180 && arr[z] < 190:
+			case arr[z] >= 180 && arr[z] < 190:
 			n+=1;
 			break;
-			case arr[z] > 190 && arr[z] < 200:
+			case arr[z] >= 190 && arr[z] < 200:
 			o+=1;
 			break;
-			case arr[z] > 200:
+			case arr[z] >= 200:
 			p+=1;
 			break;	
 		}
