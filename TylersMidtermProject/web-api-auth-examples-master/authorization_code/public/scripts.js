@@ -39,19 +39,32 @@ var app = {
 
 	/////////////////////////////////////////////////////////////INITIALIZATION/////////////////////////////////////////////////////////////
 
-	// initialize: function(playlistID, userID){
-	// 	app.getPlaylist(playlistID, userID);
-	// 	app.initializeNavClick();
-	// },
-
 	initializeNavClick: function(){
 		console.log("initializeNavClick: entered");
+		var modal = document.getElementById('myNavModal');
+
 		$(function(){
 			var $navButtons = $('li');
-			$navButtons.on('click', function(){
+			$navButtons.on("contextmenu", function(){
 				console.log(this);
+				modal.style.display = "block";
+				app.populateNavModal();
+				return false;
 			});
-		});
+		// When the user clicks anywhere outside of the modal, close it
+		modal.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		};
+	});
+	},
+
+	populateNavModal: function(){
+		console.log("populateDiscogsModal: entered");
+		var moreHTML = '';
+		moreHTML += '<tr> <td colspan= "2"> <h2>BPM INFO</h2> </td> </tr>';
+		$('.info').html(moreHTML);
 	},
 
 	getPlaylist: function(playlistID, userID) {
@@ -479,7 +492,7 @@ var app = {
 		window.onclick = function(event) {
 			if (event.target == modal) {
 				modal.style.display = "none";
-				document.createElement('audio').muted = 'true';
+				document.createElement('audio').muted ='true';
 			}
 		};
 	});
