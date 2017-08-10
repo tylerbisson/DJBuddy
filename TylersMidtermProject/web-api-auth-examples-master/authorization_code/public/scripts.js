@@ -1,6 +1,8 @@
 var app = {
 
 	playlistName : '',
+	playlistID: '',
+	userID: '',
 
 	playlistTracks : [],
 	playlistBPMS : [],
@@ -15,26 +17,25 @@ var app = {
 
 	search: function() {
 
-	// send a chat msg
-	$("#playlistSearch").click(function(){
-		var query = $('#searchInput').val();
-		var playlistPosOne = query.search("playlist");
-		playlistPosOne = playlistPosOne + 9;
-		var playlistID = query.slice(playlistPosOne, query.length);
+		$("#playlistSearch").click(function(){
+			var query = $('#searchInput').val();
+			var playlistPosOne = query.search("playlist");
+			playlistPosOne = playlistPosOne + 9;
+			var playlistID = query.slice(playlistPosOne, query.length);
 
-		var userPos = query.search("user");
-		var playlistPosTwo = query.search("playlist");
-		playlistPosTwo = playlistPosTwo - 1;
-		userPos = userPos + 5;
-		var userID = query.slice(userPos, playlistPosTwo);
+			var userPos = query.search("user");
+			var playlistPosTwo = query.search("playlist");
+			playlistPosTwo = playlistPosTwo - 1;
+			userPos = userPos + 5;
+			var userID = query.slice(userPos, playlistPosTwo);
 
-		app.getPlaylist(playlistID, userID);
-		app.initializeNavClick();
+			app.playlistID = playlistID;
+			app.userID = userID;
 
-		// app.initialize(playlistID, userID);
-
-	});
-},
+			app.getPlaylist(playlistID, userID);
+			app.initializeNavClick();
+		});
+	},
 
 	/////////////////////////////////////////////////////////////INITIALIZATION/////////////////////////////////////////////////////////////
 
@@ -496,6 +497,7 @@ var app = {
 				app.DiscogsSearch(app.sortedrecommendedTracks[this.id].name, app.sortedrecommendedTracks[this.id].artists[0].name, this.id, 0);
 				var modal = document.getElementById('myModal');
 				modal.style.display = "block";
+				// app.addToPlaylist(app.sortedrecommendedTracks[this.id].id);
 				return false;
 			});
 		// When the user clicks anywhere outside of the modal, close it
@@ -948,3 +950,33 @@ curl -X GET "https://api.spotify.com/v1/tracks/3n3Ppam7vgaVa1iaRUc9Lp" -H "Autho
 		// // .forEach()
 		// .data(arr)
 		// .style("color", function(d) { return "hsl(" + Math.round(250 * ((100-d)/100)) + ",100%,50%)"; });
+
+/////////////////////////////////////////////////////////////ADD_TO_PLAYLIST/////////////////////////////////////////////////////////////
+
+
+// addToPlaylist: function(URI) {
+// 	console.log(app.sortedrecommendedTracks);
+// 	console.log(URI);
+// 	console.log(app.userID);
+// 	console.log(app.playlistID);
+// 	var key = localStorage.getItem("jammer");
+// 	console.log("addToPlaylist: initialize");
+// 	var spotifyURL = 'https://api.spotify.com/v1/users/';
+// 		var mySpotifyReqURL = spotifyURL + app.userID + "/playlists/" + app.playlistID + "/tracks?uris=spotify:track:" + URI;
+// 		$.ajax({
+// 			url: mySpotifyReqURL,
+// 			type: 'GET',
+// 			dataType: 'json',
+// 			headers: {
+// 				'Authorization': 'Bearer ' + key
+// 			},
+// 			error: function(err){
+// 				console.log("addToPlaylist: error");
+// 				console.log(err);
+// 			},
+// 			success: function(data){
+// 				console.log("addToPlaylist: success");
+// 				console.log(data);
+// 			}
+// 		});
+// 	},
