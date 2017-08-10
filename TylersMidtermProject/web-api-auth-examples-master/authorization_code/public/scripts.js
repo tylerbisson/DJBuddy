@@ -31,11 +31,17 @@ var app = {
 		app.getPlaylist(playlistID, userID);
 		app.initializeNavClick();
 
+		// app.initialize(playlistID, userID);
+
 	});
 },
 
 	/////////////////////////////////////////////////////////////INITIALIZATION/////////////////////////////////////////////////////////////
 
+	// initialize: function(playlistID, userID){
+	// 	app.getPlaylist(playlistID, userID);
+	// 	app.initializeNavClick();
+	// },
 
 	initializeNavClick: function(){
 		console.log("initializeNavClick: entered");
@@ -131,7 +137,7 @@ var app = {
 		theHTML += "<table class='playlistitems'>";
 		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> Pop </th> <th> BPM </th> </tr>";
 		theHTML += "</table>" ;
-		$('.playlist').append(theHTML);
+		$('.playlist').html(theHTML);
 		var moreHTML = '';
 		for (var i = 0; i < app.playlistTracks.length; i++){
 			if (i % 2 == 0){
@@ -793,7 +799,8 @@ deeThreeExperimentTWO: function(){
 			'#800040', 
 			'#660033']);
 
-		var svg = d3.select('#chart')
+		var svg = d3.select('#pie')
+		.html("")
 		.append('svg')
 		.attr('width', width)
 		.attr('height', height)
