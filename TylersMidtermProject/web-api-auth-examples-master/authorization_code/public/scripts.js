@@ -44,7 +44,6 @@ var app = {
 		console.log("getPlaylist: initialize");
 		var spotifyURL = 'https://api.spotify.com/v1/users/';
 		var userID = "122514310";
-		// var ID = "77fAYvRZgDXuBoTFxfMPbK";
 		var mySpotifyKey = key;
 		var mySpotifyReqURL = spotifyURL + userID + "/playlists/" + playlistID;
 		$.ajax({
@@ -836,22 +835,6 @@ deeThreeExperimentTWO: function(){
 
 },
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

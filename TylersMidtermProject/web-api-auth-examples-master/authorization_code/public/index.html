@@ -79,6 +79,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script>
+
   (function() {
 
         /**
@@ -94,32 +95,6 @@
          }
          return hashParams;
        }
-
-       function getArtist(key) {
-        console.log("Get artist");
-        var mySpotifyReqURL = 'https://api.spotify.com/v1/search?q=kanye%20west&type=artist';
-        var mySpotifyKey = key;
-        $.ajax({
-          url: mySpotifyReqURL,
-          type: 'GET',
-          dataType: 'json',
-          headers: {
-            'Authorization': 'Bearer ' + mySpotifyKey
-          },
-          error: function(err){
-            console.log("Uh oh...");
-            console.log(err);
-          },
-          success: function(data){
-              //console.log(data);
-              console.log("I found kanye west.");
-              console.log(data);
-
-              var one = document.getElementById('one');
-              one.innerHTML = data.artists.items[0].name;
-            }
-          });
-      }
 
       var userProfileSource = document.getElementById('user-profile-template').innerHTML,
       userProfileTemplate = Handlebars.compile(userProfileSource),
