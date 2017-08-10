@@ -17,18 +17,18 @@ h2{
 	text-align: center;
 	float: center;
 	color: Black;
-	text-shadow: 2px 2px 5px #006666;
+	/*text-shadow: 2px 2px 5px #006666;*/
 }
 
 h3{
-	font: italic 50px/45px Arial Rounded MT Bold, sans-serif;
+	font: italic 25px/45px Arial Rounded MT Bold, sans-serif;
 	text-align: center;
 	float: center;
 	color: #bdcccc;
 }
 
 h3.rex{
-	font: italic 50px/45px Arial Rounded MT Bold, sans-serif;
+	font: italic 25px/45px Arial Rounded MT Bold, sans-serif;
 	text-align: center;
 	float: center;
 	color: #d0d0db;

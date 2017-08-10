@@ -1,5 +1,7 @@
 var app = {
 
+	playlistName : '',
+
 	playlistTracks : [],
 	playlistBPMS : [],
 	recommendedTracks : [],
@@ -15,15 +17,21 @@ var app = {
 
 	// send a chat msg
 	$("#playlistSearch").click(function(){
-	var query = $('#searchInput').val();
-	var pos = query.search("playlist:");
-	firstPos = pos + 9;
-	var playlistID = query.slice(firstPos, query.length);
+		var query = $('#searchInput').val();
+		var playlistPosOne = query.search("playlist");
+		playlistPosOne = playlistPosOne + 9;
+		var playlistID = query.slice(playlistPosOne, query.length);
 
-	app.getPlaylist(playlistID);
-	app.initializeNavClick();
+		var userPos = query.search("user");
+		var playlistPosTwo = query.search("playlist");
+		playlistPosTwo = playlistPosTwo - 1;
+		userPos = userPos + 5;
+		var userID = query.slice(userPos, playlistPosTwo);
 
-});
+		app.getPlaylist(playlistID, userID);
+		app.initializeNavClick();
+
+	});
 },
 
 	/////////////////////////////////////////////////////////////INITIALIZATION/////////////////////////////////////////////////////////////
@@ -39,11 +47,11 @@ var app = {
 		});
 	},
 
-	getPlaylist: function(playlistID) {
+	getPlaylist: function(playlistID, userID) {
 		var key = localStorage.getItem("jammer");
 		console.log("getPlaylist: initialize");
 		var spotifyURL = 'https://api.spotify.com/v1/users/';
-		var userID = "122514310";
+		// var userID = "122514310";
 		var mySpotifyKey = key;
 		var mySpotifyReqURL = spotifyURL + userID + "/playlists/" + playlistID;
 		$.ajax({
@@ -61,6 +69,9 @@ var app = {
 				console.log("getPlaylist: success");
 				app.playlistTracks = data.tracks.items;
 				app.getBPMandKey();
+				app.playlistName = data.name;
+				console.log(data);
+				console.log(data.name);
 			}
 		});
 	},
@@ -116,7 +127,7 @@ var app = {
 
 	makeSortedPlaylistHTML: function() {
 		console.log("makeSortedPlaylistHTML: entered");
-		var theHTML = "<h3> playlist </h3>";
+		var theHTML = "<h3>" + app.playlistName + "</h3>";
 		theHTML += "<table class='playlistitems'>";
 		theHTML += "<tr> <th> Artist </th> <th> Track </th> <th> Pop </th> <th> BPM </th> </tr>";
 		theHTML += "</table>" ;
